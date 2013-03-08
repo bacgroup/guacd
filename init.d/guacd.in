@@ -55,6 +55,10 @@ prog="guacd"
 exec="@sbindir@/$prog"
 pidfile="/var/run/$prog.pid"
 
+# Ensure $HOME is set properly, even if environment is clear
+USER=`whoami`
+export HOME=`sh -c "echo ~$USER"`
+
 # Returns PID of currently running process, if any
 getpid() {
 
