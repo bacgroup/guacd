@@ -59,6 +59,8 @@ pidfile="/var/run/$prog.pid"
 USER=`whoami`
 export HOME=`sh -c "echo ~$USER"`
 
+. /lib/lsb/init-functions
+
 # Returns PID of currently running process, if any
 getpid() {
 
@@ -83,17 +85,17 @@ getpid() {
 
 start() {
     [ -x $exec ] || exit 5
-    echo -n "Starting $prog: "
+    log_daemon_msg "Starting" "$prog"
 
     getpid > /dev/null || $exec -p "$pidfile" 
     retval=$?
 
     case "$retval" in
         0)
-            echo "SUCCESS"
+            log_end_msg 0
             ;;
         *)
-            echo "FAIL"
+            log_end_msg 1
             ;;
     esac
 
@@ -101,7 +103,7 @@ start() {
 }
 
 stop() {
-    echo -n "Stopping $prog: "
+    log_daemon_msg "Stopping" "$prog"
     
     PID=`getpid`
     retval=$?
@@ -110,15 +112,15 @@ stop() {
         0)
             if kill $PID > /dev/null 2>&1
             then
-                echo "SUCCESS"
+                log_end_msg 0
                 return 0
             fi
 
-            echo "FAIL"
+            log_end_msg 1
             return 1
             ;;
         *)
-            echo "SUCCESS (not running)"
+            log_success_msg "SUCCESS (not running)"
             return 0
             ;;
     esac
@@ -159,7 +161,7 @@ case "$1" in
         status && restart
         ;;
     *)
-        echo "Usage: $0 {start|stop|status|restart|try-restart|force-reload}"
+        log_success_msg "Usage: $0 {start|stop|status|restart|try-restart|force-reload}"
         exit 2
 esac
 exit $?
