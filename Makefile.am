@@ -36,18 +36,20 @@
 
 AUTOMAKE_OPTIONS = foreign 
 initdir = @init_dir@
+defaultdir = "/etc/default"
 
 AM_CFLAGS = -Werror -Wall -pedantic -Iinclude
 
 sbin_PROGRAMS = guacd
 init_SCRIPTS = init.d/guacd
+default_SCRIPTS = default/guacd
 man_MANS = man/guacd.8
 
 noinst_HEADERS = include/client.h include/log.h
 guacd_SOURCES = src/daemon.c src/client.c src/log.c
 
-EXTRA_DIST = init.d/guacd.in man/guacd.8 LICENSE
-CLEANFILES = $(init_SCRIPTS)
+EXTRA_DIST = init.d/guacd.in default/guacd man/guacd.8 LICENSE
+CLEANFILES = $(init_SCRIPTS) $(default_SCRIPTS)
 
 init.d/guacd: init.d/guacd.in
 	sed -e 's,[@]sbindir[@],$(sbindir),g' < init.d/guacd.in > init.d/guacd

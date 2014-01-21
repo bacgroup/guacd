@@ -54,10 +54,14 @@
 prog="guacd"
 exec="@sbindir@/$prog"
 pidfile="/var/run/$prog.pid"
+default="/etc/default/guacd"
 
 # Ensure $HOME is set properly, even if environment is clear
 USER=`whoami`
 export HOME=`sh -c "echo ~$USER"`
+
+# Load default if exists
+[ -r "$default" ] && . "$default"
 
 . /lib/lsb/init-functions
 
