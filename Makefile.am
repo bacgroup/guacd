@@ -49,7 +49,7 @@ noinst_HEADERS = include/client.h include/log.h
 guacd_SOURCES = src/daemon.c src/client.c src/log.c
 
 EXTRA_DIST = init.d/guacd.in default/guacd man/guacd.8 LICENSE
-CLEANFILES = $(init_SCRIPTS) $(default_SCRIPTS)
+CLEANFILES = $(init_SCRIPTS)
 
 init.d/guacd: init.d/guacd.in
 	sed -e 's,[@]sbindir[@],$(sbindir),g' init.d/guacd.in | sed -e 's,[@]defaultdir[@],$(defaultdir),g'  > init.d/guacd
