@@ -36,7 +36,7 @@
 
 AUTOMAKE_OPTIONS = foreign 
 initdir = @init_dir@
-defaultdir = "/etc/default"
+defaultdir = @default_dir@
 
 AM_CFLAGS = -Werror -Wall -pedantic -Iinclude
 
@@ -52,6 +52,6 @@ EXTRA_DIST = init.d/guacd.in default/guacd man/guacd.8 LICENSE
 CLEANFILES = $(init_SCRIPTS) $(default_SCRIPTS)
 
 init.d/guacd: init.d/guacd.in
-	sed -e 's,[@]sbindir[@],$(sbindir),g' < init.d/guacd.in > init.d/guacd
+	sed -e 's,[@]sbindir[@],$(sbindir),g' init.d/guacd.in | sed -e 's,[@]defaultdir[@],$(defaultdir),g'  > init.d/guacd
 	chmod +x init.d/guacd
 

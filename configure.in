@@ -59,5 +59,11 @@ AC_ARG_WITH(init_dir,
             ],init_dir=$withval)
 AC_SUBST(init_dir)
 
+AC_ARG_WITH(default_dir,
+            [AS_HELP_STRING([--with-default-dir=<path>],
+                            [install an default params script to the given directory])
+            ],default_dir=$withval)
+AC_SUBST(default_dir)
+
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

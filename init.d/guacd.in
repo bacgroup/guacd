@@ -54,7 +54,7 @@
 prog="guacd"
 exec="@sbindir@/$prog"
 pidfile="/var/run/$prog.pid"
-default="/etc/default/guacd"
+default="@defaultdir@/guacd"
 
 # Ensure $HOME is set properly, even if environment is clear
 USER=`whoami`
