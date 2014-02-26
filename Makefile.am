@@ -41,17 +41,24 @@ defaultdir = @default_dir@
 AM_CFLAGS = -Werror -Wall -pedantic -Iinclude
 
 sbin_PROGRAMS = guacd
-init_SCRIPTS = init.d/guacd
+init_SCRIPTS = init.d/guacd.debian init.d/guacd.redhat init.d/guacd.suse
 default_SCRIPTS = default/guacd
 man_MANS = man/guacd.8
 
 noinst_HEADERS = include/client.h include/log.h
 guacd_SOURCES = src/daemon.c src/client.c src/log.c
 
-EXTRA_DIST = init.d/guacd.in default/guacd man/guacd.8 LICENSE
+EXTRA_DIST = init.d/guacd.debian.in init.d/guacd.redhat.in init.d/guacd.suse.in default/guacd man/guacd.8 LICENSE
 CLEANFILES = $(init_SCRIPTS)
 
-init.d/guacd: init.d/guacd.in
-	sed -e 's,[@]sbindir[@],$(sbindir),g' init.d/guacd.in | sed -e 's,[@]defaultdir[@],$(defaultdir),g'  > init.d/guacd
-	chmod +x init.d/guacd
+init.d/guacd.debian: init.d/guacd.debian.in
+	sed -e 's,[@]sbindir[@],$(sbindir),g' init.d/guacd.debian.in | sed -e 's,[@]defaultdir[@],$(defaultdir),g'  > init.d/guacd.debian
+	chmod +x init.d/guacd.debian
 
+init.d/guacd.redhat: init.d/guacd.redhat.in
+	sed -e 's,[@]sbindir[@],$(sbindir),g' init.d/guacd.redhat.in | sed -e 's,[@]defaultdir[@],$(defaultdir),g'  > init.d/guacd.redhat
+	chmod +x init.d/guacd.redhat
+
+init.d/guacd.suse: init.d/guacd.suse.in
+	sed -e 's,[@]sbindir[@],$(sbindir),g' init.d/guacd.suse.in | sed -e 's,[@]defaultdir[@],$(defaultdir),g'  > init.d/guacd.suse
+	chmod +x init.d/guacd.suse
